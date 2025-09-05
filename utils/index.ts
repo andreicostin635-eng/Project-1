@@ -1,0 +1,32 @@
+
+
+export async function fetchCars() {
+    const headers = {
+        'x-rapidapi-key': '604b096630msh3ab5ab617a5d7c2p1a2d5ejsnb5a834bbdf15',
+        'x-rapidapi-host': 'cars-by-api-ninjas.p.rapidapi.com'
+    }
+
+const response = await fetch('https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla',
+    {headers: headers,}
+);
+
+const result = await response.json();
+
+return result;
+}
+
+export const calculateCarRent = (city_mpg: number, year: number) => {
+  city_mpg = 23;
+  const basePricePerDay = 50; // Base rental price per day in dollars
+  const mileageFactor = 0.1; // Additional rate per mile driven
+  const ageFactor = 0.05; // Additional rate per year of vehicle age
+
+  // Calculate additional rate based on mileage and age
+  const mileageRate = city_mpg * mileageFactor;
+  const ageRate = (new Date().getFullYear() - year) * ageFactor;
+
+  // Calculate total rental rate per day
+  const rentalRatePerDay = basePricePerDay + mileageRate + ageRate;
+
+  return rentalRatePerDay.toFixed(0);
+};
