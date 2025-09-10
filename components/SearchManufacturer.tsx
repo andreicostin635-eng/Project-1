@@ -50,7 +50,10 @@ const SearchManufacturer = ({ manufacturer,
                     className="search-manufacturer__input"
                     placeholder="Volkswagen"
                     displayValue={(manufacturer: string) => manufacturer}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => {
+                        setQuery(e.target.value);
+                        setManufacturer(e.target.value)
+                    }}
                 />
 
                 <Transition
@@ -60,7 +63,7 @@ const SearchManufacturer = ({ manufacturer,
                     leaveTo='opacity-0'
                     afterLeave={() => setQuery('')}
                 >
-                    <ComboboxOptions>
+                    <ComboboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {filteredManufacturers.map((item) => (
                             <ComboboxOption
                             key={item}

@@ -6,9 +6,22 @@ import {
 } from "@/components";
 import { fetchCars } from "@/utils";
 import Image from "next/image";
+import { HomeProps } from "@/types";
 
-export default async function Home() {
-  const allCars = await fetchCars();
+export default async function Home({ searchParams }: HomeProps) {
+  const params = await searchParams;
+
+  const manufacturer = params.manufacturer || "";
+  const year = params.year ? parseInt(params.year) : 2022;
+  const fuel = params.fuel || "";
+  const model = params.model || "";
+
+  const allCars = await fetchCars({
+    manufacturer,
+    year: isNaN(year) ? 2022 : year,
+    fuel,
+    model,
+  });
 
   const isDataEmpty = !Array.isArray(allCars) ||
   allCars.length <1 || !allCars;
@@ -30,8 +43,8 @@ export default async function Home() {
           <SearchBar />
 
           <div className="home__filter-container">
-            {/* <CustomFilter title="fuel" />
-            <CustomFilter title="year" /> */}
+              {/* <CustomFilter title="fuel" />
+              <CustomFilter title="year" /> */}
           </div>
         </div>
 
