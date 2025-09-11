@@ -2,7 +2,8 @@ import CarCard from "@/components/CarCard";
 import { 
   CustomFilter, 
   Hero, 
-  SearchBar 
+  SearchBar, 
+  ShowMore
 } from "@/components";
 import { fetchCars } from "@/utils";
 import Image from "next/image";
@@ -13,19 +14,25 @@ export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
 
   const manufacturer = params.manufacturer || "";
-  const year = params.year ? parseInt(params.year) : 2022;
+  const year = params.year ? Number(params.year) : 2025;
   const fuel = params.fuel || "";
   const model = params.model || "";
+  const limit = params.limit ? Number(params.limit) : 10;
 
   const allCars = await fetchCars({
     manufacturer,
     year: isNaN(year) ? 2022 : year,
     fuel,
     model,
+    limit
   });
 
   const isDataEmpty = !Array.isArray(allCars) ||
   allCars.length <1 || !allCars;
+
+  const currentLimit = Number(params.limit) || 10;
+  const pageNumber = currentLimit / 10;
+  const isNext = allCars.length <= currentLimit;
 
   return (
     <main className="overflow-hidden">
@@ -56,6 +63,11 @@ export default async function Home({ searchParams }: HomeProps) {
                   <CarCard key={crypto.randomUUID()} car={car} />
                 ))}
               </div>
+
+              <ShowMore
+                pageNumber={pageNumber}
+                isNext={false}
+              />
             </section>
           ): (
             <div className="home__error-container">

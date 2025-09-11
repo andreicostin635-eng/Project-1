@@ -36,6 +36,7 @@ export interface FilterProps {
     year: number,
     fuel: string,
     model: string,
+    limit: number; 
 }
 
 export interface SearchParams {
@@ -43,10 +44,11 @@ export interface SearchParams {
   year?: string;
   fuel?: string;
   model?: string;
+  limit?: string;
 }
 
 export interface HomeProps {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }
 
 export interface OptinProps {
@@ -58,3 +60,8 @@ export interface CustomFilterProps {
   title: string;
   options: OptinProps[];
 } 
+
+export interface ShowMoreProps {
+  pageNumber: number;
+  isNext: boolean;
+}
