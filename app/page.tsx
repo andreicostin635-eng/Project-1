@@ -7,6 +7,7 @@ import {
 import { fetchCars } from "@/utils";
 import Image from "next/image";
 import { HomeProps } from "@/types";
+import { fuels, yearsOfProduction } from "@/constants";
 
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
@@ -42,10 +43,10 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="home__filters">
           <SearchBar />
 
-          <div className="home__filter-container">
-              {/* <CustomFilter title="fuel" />
-              <CustomFilter title="year" /> */}
-          </div>
+        <div className="home__filter-container">
+          <CustomFilter title="fuel" options={fuels} />
+          <CustomFilter title="year" options={yearsOfProduction} />
+        </div>
         </div>
 
           {!isDataEmpty ? (

@@ -48,3 +48,13 @@ export interface SearchParams {
 export interface HomeProps {
   searchParams: SearchParams;
 }
+
+export interface OptinProps {
+  title: string;
+  value: string;
+}
+
+export interface CustomFilterProps {
+  title: string;
+  options: OptinProps[];
+} 
